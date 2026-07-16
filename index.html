@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0a0d14" />
+  <meta name="description" content="Momentum is a private, offline-first daily productivity dashboard with tasks, focus timer, habits, notes and hydration tracking." />
+  <meta property="og:title" content="Momentum — Your day, under control" />
+  <meta property="og:description" content="A private daily dashboard for focus, tasks, habits and notes." />
+  <meta property="og:type" content="website" />
+  <title>Momentum — Your day, under control</title>
+  <link rel="icon" href="icon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <div class="aurora aurora-one" aria-hidden="true"></div>
+  <div class="aurora aurora-two" aria-hidden="true"></div>
+
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="#top" aria-label="Momentum home">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32"><path d="M5 22.5 12.5 10l4.2 7L21.5 8 27 22.5"/><path d="M7 25h18"/></svg>
+      </span>
+      <span>Momentum</span>
+    </a>
+
+    <nav class="nav" aria-label="Main navigation">
+      <button class="nav-item active" data-section="overview" type="button"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg><span>Overview</span></button>
+      <button class="nav-item" data-section="tasks" type="button"><svg viewBox="0 0 24 24"><path d="m4 7 2 2 4-4"/><path d="M12 7h8"/><path d="m4 15 2 2 4-4"/><path d="M12 15h8"/></svg><span>Tasks</span></button>
+      <button class="nav-item" data-section="focus" type="button"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5"/><path d="M9 2h6"/></svg><span>Focus</span></button>
+      <button class="nav-item" data-section="habits" type="button"><svg viewBox="0 0 24 24"><path d="M12 3c3 4 6 6.2 6 10a6 6 0 0 1-12 0c0-2.1 1.1-4.3 3.1-6.4.2 2.7 1.4 4.1 2.9 4.9C11.5 8.3 12 5.7 12 3Z"/></svg><span>Habits</span></button>
+      <button class="nav-item" data-section="notes" type="button"><svg viewBox="0 0 24 24"><path d="M5 3h10l4 4v14H5z"/><path d="M14 3v5h5"/><path d="M8 13h8M8 17h6"/></svg><span>Notes</span></button>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <div class="privacy-pill"><span class="status-dot"></span>Private by design</div>
+      <button class="icon-button wide" id="installApp" type="button" hidden><svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m8 11 4 4 4-4"/><path d="M4 17v3h16v-3"/></svg>Install app</button>
+    </div>
+  </aside>
+
+  <main class="app-shell" id="top">
+    <header class="topbar">
+      <button class="mobile-menu icon-button" id="mobileMenu" type="button" aria-label="Open menu"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <div class="topbar-copy"><p class="eyebrow" id="todayLabel">Today</p><h1 id="greeting">Good evening</h1></div>
+      <div class="topbar-actions">
+        <button class="icon-button" id="quickReset" type="button" aria-label="Start a breathing reset" title="60-second reset"><svg viewBox="0 0 24 24"><path d="M12 21a9 9 0 1 0-9-9"/><path d="M3 4v5h5"/><path d="M12 8v4l3 2"/></svg></button>
+        <button class="icon-button" id="themeToggle" type="button" aria-label="Toggle theme"><svg class="sun-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+        <button class="avatar-button" id="profileButton" type="button" aria-label="Edit your name"><span id="avatarInitial">Y</span></button>
+      </div>
+    </header>
+
+    <section class="section active" id="section-overview" data-view="overview">
+      <div class="hero-card panel">
+        <div class="hero-copy">
+          <span class="soft-badge"><span class="spark"></span> Daily command center</span>
+          <h2>Make today feel<br><span>manageable.</span></h2>
+          <p>One calm place for the things that matter. No account, no tracking, no noise.</p>
+          <div class="hero-actions"><button class="primary-button" type="button" data-jump="focus">Start a focus session</button><button class="secondary-button" type="button" id="addTaskHero">Add a task</button></div>
+        </div>
+        <div class="score-wrap"><div class="score-ring" id="scoreRing" style="--score: 0"><div class="score-inner"><strong id="dailyScore">0</strong><span>daily score</span></div></div><p id="scoreMessage">Start small. One action is enough.</p></div>
+      </div>
+
+      <div class="stats-grid">
+        <article class="stat-card panel"><div class="stat-icon violet"><svg viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg></div><div><span>Tasks done</span><strong id="tasksDoneStat">0</strong></div><small id="tasksDoneSub">0 remaining</small></article>
+        <article class="stat-card panel"><div class="stat-icon cyan"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/></svg></div><div><span>Focus time</span><strong><span id="focusMinutesStat">0</span>m</strong></div><small>Today</small></article>
+        <article class="stat-card panel"><div class="stat-icon orange"><svg viewBox="0 0 24 24"><path d="M12 3c3 4 6 6.2 6 10a6 6 0 0 1-12 0c0-2.1 1.1-4.3 3.1-6.4.2 2.7 1.4 4.1 2.9 4.9C11.5 8.3 12 5.7 12 3Z"/></svg></div><div><span>Habits</span><strong id="habitsStat">0/0</strong></div><small id="habitStreakStat">Keep it moving</small></article>
+        <article class="stat-card panel"><div class="stat-icon blue"><svg viewBox="0 0 24 24"><path d="M12 3s6 6.3 6 11a6 6 0 1 1-12 0c0-4.7 6-11 6-11Z"/></svg></div><div><span>Water</span><strong><span id="waterStat">0</span>/8</strong></div><small>glasses</small></article>
+      </div>
+
+      <div class="dashboard-grid">
+        <article class="panel task-preview-card"><div class="panel-heading"><div><p class="eyebrow">Next up</p><h3>Today’s tasks</h3></div><button class="text-button" type="button" data-jump="tasks">View all</button></div><div class="mini-list" id="taskPreview"></div></article>
+        <article class="panel mini-focus-card"><div class="panel-heading"><div><p class="eyebrow">Deep work</p><h3>Focus timer</h3></div><span class="live-pill"><span></span> Ready</span></div><div class="mini-timer" id="overviewTimer">25:00</div><div class="mini-timer-track"><span id="overviewTimerProgress"></span></div><button class="primary-button full" type="button" data-jump="focus">Open focus mode</button></article>
+        <article class="panel water-card"><div class="panel-heading"><div><p class="eyebrow">Hydration</p><h3>Water goal</h3></div><button class="icon-button small" id="resetWater" type="button" aria-label="Reset water tracker"><svg viewBox="0 0 24 24"><path d="M4 4v6h6"/><path d="M5.2 15a7 7 0 1 0 1.2-7.6L4 10"/></svg></button></div><div class="water-glasses" id="waterGlasses" aria-label="Water glasses"></div><button class="secondary-button full" id="addWater" type="button">+ Add one glass</button></article>
+      </div>
+    </section>
+
+    <section class="section" id="section-tasks" data-view="tasks">
+      <div class="page-title-row"><div><p class="eyebrow">Clear the mental clutter</p><h2>Tasks</h2><p>Capture it, prioritize it, finish it.</p></div><button class="primary-button" id="addTaskButton" type="button">+ New task</button></div>
+      <div class="tasks-layout">
+        <article class="panel task-board"><div class="task-toolbar"><div class="filter-tabs" role="tablist"><button class="filter-tab active" data-filter="all" type="button">All</button><button class="filter-tab" data-filter="open" type="button">Open</button><button class="filter-tab" data-filter="done" type="button">Done</button></div><button class="text-button danger-text" id="clearCompleted" type="button">Clear completed</button></div><div class="task-list" id="taskList"></div></article>
+        <aside class="panel task-insight"><p class="eyebrow">At a glance</p><h3>Your workload</h3><div class="insight-number"><strong id="openTaskCount">0</strong><span>open tasks</span></div><div class="priority-bars"><div><span>High priority</span><b id="highPriorityCount">0</b></div><div class="bar"><i class="high" id="highPriorityBar"></i></div><div><span>Medium priority</span><b id="mediumPriorityCount">0</b></div><div class="bar"><i class="medium" id="mediumPriorityBar"></i></div><div><span>Low priority</span><b id="lowPriorityCount">0</b></div><div class="bar"><i class="low" id="lowPriorityBar"></i></div></div><p class="insight-tip">Tip: Keep only three high-priority tasks for a calmer day.</p></aside>
+      </div>
+    </section>
+
+    <section class="section" id="section-focus" data-view="focus">
+      <div class="page-title-row"><div><p class="eyebrow">Protect your attention</p><h2>Focus</h2><p>Do one thing. Let everything else wait.</p></div></div>
+      <div class="focus-layout">
+        <article class="panel focus-main-card">
+          <div class="focus-tabs"><button class="focus-tab active" data-mode="focus" type="button">Focus</button><button class="focus-tab" data-mode="short" type="button">Short break</button><button class="focus-tab" data-mode="long" type="button">Long break</button></div>
+          <div class="focus-ring" id="focusRing" style="--progress: 0"><div><span id="focusModeLabel">Focus session</span><strong id="focusTimer">25:00</strong><small id="focusStatus">Ready when you are</small></div></div>
+          <div class="timer-controls"><button class="icon-button large" id="resetTimer" type="button" aria-label="Reset timer"><svg viewBox="0 0 24 24"><path d="M4 4v6h6"/><path d="M5.2 15a7 7 0 1 0 1.2-7.6L4 10"/></svg></button><button class="timer-play" id="toggleTimer" type="button" aria-label="Start focus timer"><svg class="play-svg" viewBox="0 0 24 24"><path d="m9 6 9 6-9 6z"/></svg><svg class="pause-svg" viewBox="0 0 24 24"><path d="M9 6v12M15 6v12"/></svg></button><button class="icon-button large" id="skipTimer" type="button" aria-label="Skip timer"><svg viewBox="0 0 24 24"><path d="m6 6 8 6-8 6zM18 6v12"/></svg></button></div>
+          <div class="focus-intention"><label for="focusIntention">What are you focusing on?</label><input id="focusIntention" maxlength="80" placeholder="e.g. Finish the presentation" autocomplete="off" /></div>
+        </article>
+        <aside class="focus-side">
+          <article class="panel focus-stats-card"><p class="eyebrow">Today</p><h3>Focus stats</h3><div class="focus-stat-line"><span>Minutes focused</span><strong id="focusMinutesSide">0</strong></div><div class="focus-stat-line"><span>Sessions finished</span><strong id="focusSessionsSide">0</strong></div><div class="focus-stat-line"><span>Daily target</span><strong>100m</strong></div><div class="goal-track"><i id="focusGoalBar"></i></div></article>
+          <article class="panel sound-card"><div><p class="eyebrow">Ambient sound</p><h3>Brown noise</h3><p>Mask distractions with a soft, generated sound.</p></div><button class="sound-toggle" id="soundToggle" type="button" aria-pressed="false"><span></span></button></article>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="section-habits" data-view="habits">
+      <div class="page-title-row"><div><p class="eyebrow">Small actions, repeated</p><h2>Habits</h2><p>Build consistency without chasing perfection.</p></div><button class="primary-button" id="addHabitButton" type="button">+ New habit</button></div><div class="habit-grid" id="habitGrid"></div>
+    </section>
+
+    <section class="section" id="section-notes" data-view="notes">
+      <div class="page-title-row"><div><p class="eyebrow">A quieter mind</p><h2>Notes</h2><p>Write it down before it takes up more space.</p></div><span class="save-status" id="saveStatus"><span></span> Saved locally</span></div>
+      <div class="notes-layout"><article class="panel notes-card"><div class="notes-toolbar"><span>Quick notes</span><small id="noteCount">0 characters</small></div><textarea id="notesArea" maxlength="12000" placeholder="Ideas, reminders, things to remember…"></textarea></article><aside class="panel prompts-card"><p class="eyebrow">Stuck?</p><h3>Reflection prompts</h3><button class="prompt-chip" type="button">What is the one thing that would make today successful?</button><button class="prompt-chip" type="button">What can I stop worrying about for now?</button><button class="prompt-chip" type="button">What went better than expected today?</button><button class="prompt-chip" type="button">What deserves my attention tomorrow?</button></aside></div>
+    </section>
+  </main>
+
+  <div class="modal-backdrop" id="taskModal" aria-hidden="true"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="taskModalTitle"><button class="modal-close icon-button" type="button" data-close-modal="taskModal" aria-label="Close"><svg viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button><p class="eyebrow">Capture it</p><h2 id="taskModalTitle">New task</h2><form id="taskForm"><label>Task name<input id="taskTitle" maxlength="100" required placeholder="What needs to get done?" autocomplete="off" /></label><label>Priority<select id="taskPriority"><option value="high">High</option><option value="medium" selected>Medium</option><option value="low">Low</option></select></label><button class="primary-button full" type="submit">Add task</button></form></div></div>
+  <div class="modal-backdrop" id="habitModal" aria-hidden="true"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="habitModalTitle"><button class="modal-close icon-button" type="button" data-close-modal="habitModal" aria-label="Close"><svg viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button><p class="eyebrow">Build consistency</p><h2 id="habitModalTitle">New habit</h2><form id="habitForm"><label>Habit name<input id="habitTitle" maxlength="60" required placeholder="e.g. Read for 10 minutes" autocomplete="off" /></label><label>Icon<select id="habitIcon"><option value="📚">📚 Read</option><option value="🏃">🏃 Move</option><option value="🧘">🧘 Reset</option><option value="💧">💧 Hydrate</option><option value="🌱">🌱 Learn</option><option value="✨">✨ Other</option></select></label><button class="primary-button full" type="submit">Add habit</button></form></div></div>
+  <div class="modal-backdrop" id="profileModal" aria-hidden="true"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="profileModalTitle"><button class="modal-close icon-button" type="button" data-close-modal="profileModal" aria-label="Close"><svg viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button><p class="eyebrow">Personalize</p><h2 id="profileModalTitle">What should we call you?</h2><form id="profileForm"><label>Your name<input id="profileName" maxlength="30" placeholder="Your name" autocomplete="name" /></label><button class="primary-button full" type="submit">Save name</button></form></div></div>
+
+  <div class="reset-overlay" id="resetOverlay" aria-hidden="true"><button class="reset-close" id="closeReset" type="button" aria-label="Close breathing reset">×</button><div class="breathing-orb" id="breathingOrb"><span></span></div><h2 id="breathingText">Breathe in</h2><p id="breathingCountdown">60 seconds to reset</p></div>
+  <div class="toast-stack" id="toastStack" aria-live="polite"></div>
+  <script src="app.js" defer></script>
+</body>
+</html>
